@@ -27,21 +27,21 @@ jobs:
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
           # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-      - name: Build and Tag image
-        run: |
-           docker build -f ./python3 .
+     # - name: Build and Tag image
+      #  run: |
+       #    docker build -f ./python3 .
       - name: Login to the Container Registry  
         uses: azure/docker-login@v1
         with:
           login-server: ${{ secrets.ACR_LOGIN_SERVER }}
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
-     # - name: Build and Tag image
-      #  run: |
-       #   docker build -f ./python3 -t ${{ secrets.ACR_LOGIN_SERVER }}/python3:${{ github.run_number }} .
+      - name: Build and Tag image
+        run: |
+          docker build -f ./python3 -t ${{ secrets.ACR_LOGIN_SERVER }}/docker:${{ github.run_number }} .
       - name: Scan image
         uses: Azure/container-scan@v0
         with:
-          image-name: ${{ secrets.ACR_LOGIN_SERVER }}/python3:${{ github.run_number }}
+          image-name: ${{ secrets.ACR_LOGIN_SERVER }}/docker:${{ github.run_number }}
           severity-threshold: CRITICAL
           run-quality-checks: true
