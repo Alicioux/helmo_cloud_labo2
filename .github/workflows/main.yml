@@ -38,10 +38,10 @@ jobs:
           password: ${{ secrets.REGISTRY_PASSWORD }}
       - name: Build and Tag image
         run: |
-          docker build -f ./python3 -t ${{ secrets.ACR_LOGIN_SERVER }}/docker:${{ github.run_number }} .
+          docker build -f ./python3 . 
       - name: Scan image
         uses: Azure/container-scan@v0
         with:
-          image-name: ${{ secrets.ACR_LOGIN_SERVER }}/docker:${{ github.run_number }}
+          image-name: ./python3
           severity-threshold: CRITICAL
           run-quality-checks: true
