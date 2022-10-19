@@ -42,11 +42,10 @@ jobs:
       - name: Scan image
         uses: Azure/container-scan@v0
         with:
-          image-name: ${{ secrets.ACR_LOGIN_SERVER }}/image:${{ github.run_number }}  .
+          image-name: ${{ secrets.ACR_LOGIN_SERVER }}/image:${{ github.run_number }}
           severity-threshold: CRITICAL
           run-quality-checks: true
       - name: Push image
         run: |
-          docker push ${{ secrets.ACR_LOGIN_SERVER }}/image:${{ github.run_number }}  .
+          docker push ${{ secrets.ACR_LOGIN_SERVER }}/image:${{ github.run_number }}
 
-#test
