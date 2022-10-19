@@ -45,3 +45,6 @@ jobs:
           image-name: image 
           severity-threshold: CRITICAL
           run-quality-checks: true
+      - name: Push image
+        run: |
+          docker push image
